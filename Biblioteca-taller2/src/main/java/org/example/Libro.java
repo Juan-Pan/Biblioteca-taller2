@@ -1,9 +1,9 @@
 package org.example;
 
 public class Libro extends Recurso{
-    public String autor;
-    public int numeroPaginas;
-    public String genero;
+    private String autor;
+    private int numeroPaginas;
+    private String genero;
 
 
     public Libro(String titulo, int añoPublicacion, String resumen, String autor, int numeroPaginas, String genero) {

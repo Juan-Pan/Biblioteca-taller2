@@ -1,9 +1,9 @@
 package org.example;
 
 public class Recurso {
-    public String titulo;
-    public int añoPublicacion;
-    public String resumen;
+    private String titulo;
+    private int añoPublicacion;
+    private String resumen;
 
 
     public Recurso(String titulo, int añoPublicacion, String resumen)
@@ -28,5 +28,11 @@ public class Recurso {
 
     public void setAñoPublicacion(int añoPublicacion){
         this.añoPublicacion = añoPublicacion;
+    }
+    public String getResumen(){
+        return resumen;
+    }
+    public void setResumen(String resumen){
+        this.resumen = resumen;
     }
 }
