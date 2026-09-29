@@ -1,9 +1,12 @@
 package org.example;
 
+import java.util.List;
+
 public class Recurso {
     private String titulo;
     private int añoPublicacion;
     private String resumen;
+
 
 
     public Recurso(String titulo, int añoPublicacion, String resumen)
@@ -35,4 +38,5 @@ public class Recurso {
     public void setResumen(String resumen){
         this.resumen = resumen;
     }
+
 }

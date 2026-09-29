@@ -5,6 +5,7 @@ public class Pelicula extends Recurso {
     private int duracion;
     private String genero;
 
+
     //contructor
     public Pelicula(String titulo, int añoPublicacion, String resumen, String director, int duracion, String genero) {
         super(titulo, añoPublicacion, resumen);
