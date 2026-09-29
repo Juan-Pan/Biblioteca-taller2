@@ -32,9 +32,10 @@ public class Biblioteca {
             System.out.println("4. Devolver recurso");
             System.out.println("5. Crear recurso");
             System.out.println("6. Salir");
-            System.out.println("Seleccione una opcion: ");
+            System.out.print("Seleccione una opcion: ");
             Scanner scanner = new Scanner(System.in);
             int opcion = scanner.nextInt();
+            scanner.nextLine();
             switch (opcion) {
                 case 1 -> {
                     System.out.println("Recursos disponibles: ");
@@ -50,58 +51,68 @@ public class Biblioteca {
                     for (Revista revista : revistas) {
                         System.out.println(revista.getTitulo() + " - " + revista.getAñoPublicacion());
                     }
+                    System.out.println("");
                 }
                 case 2 -> {
                     System.out.println("Recursos prestados: ");
-                    for (Recurso recurso : usuario1.getRecursosPrestados()) {
-                        ;
-                        System.out.println(recurso.getTitulo() + " - " + recurso.getAñoPublicacion());
+                    if(usuario1.getRecursosPrestados().isEmpty()){
+                        System.out.println("No hay recursos prestados");
+                    }else{
+                        for (Recurso recurso : usuario1.getRecursosPrestados()) {
+                            ;
+                            System.out.println(recurso.getTitulo() + " - " + recurso.getAñoPublicacion());
+                        }
                     }
+                    System.out.println("");
                 }
                 case 3 -> {
-                    System.out.println("Ingrese el titulo del recurso a prestar: ");
-                    String titulo = scanner.nextLine();
-                    boolean encontrado = false;
+                    System.out.print("Ingrese el titulo del recurso a prestar: ");
+                    String titulo = scanner.nextLine().trim();
+                    Recurso recursoEncontrado = null;
+
                     for (Libro libro : libros) {
-                        if (titulo.equals(libro.getTitulo())) {
-                            usuario1.agregarRecurso(libro);
-                            libros.remove(libro);
-                            encontrado = true;
+                        if (titulo.equalsIgnoreCase(libro.getTitulo().trim())) {
+                            recursoEncontrado = libro;
                             break;
                         }
                     }
-                    if (!encontrado) {
-                        System.out.println("Recurso no encontrado");
-                    }
-                    for (Pelicula pelicula : peliculas) {
-                        if (titulo.equals(pelicula.getDirector())) {
-                            usuario1.agregarRecurso(pelicula);
-                            peliculas.remove(pelicula);
-                            encontrado = true;
-                            break;
+                    if (recursoEncontrado == null) {
+                        for (Pelicula pelicula : peliculas) {
+                            if (titulo.equalsIgnoreCase(pelicula.getTitulo().trim())) {
+                                recursoEncontrado = pelicula;
+                                break;
+                            }
                         }
                     }
-                    if (!encontrado) {
-                        System.out.println("Recurso no encontrado");
-                    }
-                    for (Revista revista : revistas) {
-                        if (titulo.equals(revista.getTitulo())) {
-                            usuario1.agregarRecurso(revista);
-                            revistas.remove(revista);
-                            encontrado = true;
-                            break;
+                    if (recursoEncontrado == null) {
+                        for (Revista revista : revistas) {
+                            if (titulo.equalsIgnoreCase(revista.getTitulo().trim())) {
+                                recursoEncontrado = revista;
+                                break;
+                            }
                         }
                     }
-                    if (!encontrado) {
+
+                    if (recursoEncontrado == null) {
                         System.out.println("Recurso no encontrado");
+                    } else {
+                        usuario1.agregarRecurso(recursoEncontrado);
+                        if (recursoEncontrado instanceof Libro) {
+                            libros.remove(recursoEncontrado);
+                        } else if (recursoEncontrado instanceof Pelicula) {
+                            peliculas.remove(recursoEncontrado);
+                        } else {
+                            revistas.remove(recursoEncontrado);
+                        }
+                        System.out.println("Recurso prestado correctamente");
                     }
                 }
                 case 4 -> {
-                    System.out.println("Ingrese el titulo a devolver: ");
-                    String titulo = scanner.nextLine();
+                    System.out.print("Ingrese el titulo a devolver: ");
+                    String titulo = scanner.nextLine().trim();
                     boolean encontrado = false;
                     for (Recurso recursoPrestado : usuario1.getRecursosPrestados()) {
-                        if (titulo.equals(recursoPrestado.getTitulo())) {
+                        if (titulo.equalsIgnoreCase(recursoPrestado.getTitulo().trim())) {
                             usuario1.quitarRecurso(recursoPrestado);
                             if (recursoPrestado instanceof Libro) {
                                 libros.add((Libro) recursoPrestado);
@@ -112,6 +123,7 @@ public class Biblioteca {
                                 revistas.add((Revista) recursoPrestado);
                             }
                             encontrado = true;
+                            System.out.println("Recurso devuelto correctamente");
                             break;
                         }
                     }
@@ -120,27 +132,20 @@ public class Biblioteca {
                     }
                 }
                 case 5 -> {
-                    System.out.println("Crear recurso: ");
-                    System.out.println("Ingrese el tipo de recurso que desea crear (libro, pelicula, revista ");
-                    try{
-                        String tipoRecurso = scanner.nextLine();
-                        if (tipoRecurso.equals("libro")) {
-                            System.out.print("Ingrese el titulo del libro: ");
-                            String titulo = scanner.nextLine();
-                            System.out.print("\nIngrese el año de publicacion del libro: ");
-                            String añoPublicacion = scanner.nextLine();
-                        }
-                    }catch(Exception e){
-                        System.out.println("Error al crear recurso");
-                    }
+                    System.out.println("En contruccion...");
                 }
+                case 6 -> {
+                    salir = true;
+                    System.out.println("Gracias por usar la biblioteca");
+                }
+                default -> System.out.println("Opcion no valida");
 
 
 
             }
 
 
-        } while (salir == true);
+        } while (salir == false);
 
     }
 
