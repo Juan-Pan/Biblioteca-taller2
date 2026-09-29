@@ -98,6 +98,23 @@ public class Biblioteca {
                         System.out.println("Recurso no encontrado");
                     }
                 }
+
+            }
+            case 4 -> {
+                System.out.println("Ingrese el titulo a devolver: ");
+                String titulo = scanner.nextLine();
+                boolean encontrado = false;
+                for(Recurso recursoPrestado : usuario1.getRecursosPrestados()){
+                    if(titulo.equals(recursoPrestado.getTitulo()))
+                    {
+                        usuario1.quitarRecurso(recursoPrestado);
+                        if(recursoPrestado instanceof Libro){
+                            libros.add((Libro) recursoPrestado);
+                        }
+
+                    }
+                }
+
             }
 
 
