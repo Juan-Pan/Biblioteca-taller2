@@ -55,9 +55,9 @@ public class Biblioteca {
                 }
                 case 2 -> {
                     System.out.println("Recursos prestados: ");
-                    if(usuario1.getRecursosPrestados().isEmpty()){
+                    if (usuario1.getRecursosPrestados().isEmpty()) {
                         System.out.println("No hay recursos prestados");
-                    }else{
+                    } else {
                         for (Recurso recurso : usuario1.getRecursosPrestados()) {
                             ;
                             System.out.println(recurso.getTitulo() + " - " + recurso.getAñoPublicacion());
@@ -132,19 +132,76 @@ public class Biblioteca {
                     }
                 }
                 case 5 -> {
-                    System.out.println("En contruccion...");
+                    System.out.print("Seleccione el recurso que quiere crear (libro, pelicula, revista): ");
+                    String tipoRecurso = scanner.nextLine().trim().toLowerCase();
+                    switch (tipoRecurso) {
+                        case "libro" -> {
+                            System.out.print("Ingrese el titulo del libro: ");
+                            String titulo = scanner.nextLine().trim();
+                            System.out.print("Ingrese el año de publicacion del libro: ");
+                            int añoPublicacion = scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.print("Ingrese el resumen del libro: ");
+                            String resumen = scanner.nextLine().trim();
+                            System.out.print("Ingrese el autor del libro: ");
+                            String autor = scanner.nextLine().trim();
+                            System.out.print("Ingrese el numero de paginas del libro: ");
+                            int numeroPaginas = scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.print("Ingrese el genero del libro: ");
+                            String genero = scanner.nextLine().trim();
+                            Libro libro = new Libro(titulo, añoPublicacion, resumen, autor, numeroPaginas, genero);
+                            libros.add(libro);
+                            System.out.println("Libro añadido a la biblioteca");
+
+                        }
+                        case "pelicula" -> {
+                            System.out.print("Ingrese el titulo de la pelicula: ");
+                            String titulo = scanner.nextLine().trim();
+                            System.out.print("Ingrese el año de publicacion de la pelicula: ");
+                            int añoPublicacion = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Ingrese el resumen de la pelicula: ");
+                            String resumen = scanner.nextLine().trim();
+                            System.out.print("Ingrese el director de la pelicula: ");
+                            String director = scanner.nextLine().trim();
+                            System.out.print("Ingrese la duracion de la pelicula: ");
+                            int duracion = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Ingrese el genero de la pelicula: ");
+                            String genero = scanner.nextLine().trim();
+                            Pelicula pelicula = new Pelicula(titulo, añoPublicacion, resumen, director, duracion, genero);
+                            peliculas.add(pelicula);
+                            System.out.println("Pelicula añadida a la biblioteca");
+
+                        }
+                        case "revista" -> {
+                            System.out.print("Ingrese el titulo de la revista: ");
+                            String titulo = scanner.nextLine().trim();
+                            System.out.print("Ingrese el año de publicacion de la revista: ");
+                            int añoPublicacion = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Ingrese el resumen de la revista: ");
+                            String resumen = scanner.nextLine().trim();
+                            System.out.print("Ingrese el editor de la revista: ");
+                            String editor = scanner.nextLine().trim();
+                            System.out.print("Ingrese el numero de edicion de la revista: ");
+                            int numeroEdicion = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Ingrese el tema de la revista: ");
+                            String tema = scanner.nextLine().trim();
+                            Revista revista = new Revista(titulo, añoPublicacion, resumen, editor, numeroEdicion, tema);
+                            revistas.add(revista);
+                            System.out.print("Revista añadida a la biblioteca");
+                        }
+                        default -> {
+                            System.out.println("Tipo de recurso no valido");
+                        }
+                    }
+
                 }
                 case 6 -> {
                     salir = true;
                     System.out.println("Gracias por usar la biblioteca");
                 }
                 default -> System.out.println("Opcion no valida");
-
-
-
             }
-
-
         } while (salir == false);
 
     }
